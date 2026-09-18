@@ -1,0 +1,42 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "node": true,
+    "jasmine": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  "globals": {
+    "Datamap": "readonly",
+    "Datamaps": "readonly",
+    "d3": "readonly",
+    "topojson": "readonly",
+    "jQuery": "readonly",
+    "$": "readonly",
+    "worldTopo": "readonly",
+    "usaTopo": "readonly",
+    "define": "readonly"
+  },
+  "rules": {
+    "no-undef": "error",
+    "no-unused-vars": ["warn", { "args": "none" }],
+    "no-cond-assign": "error",
+    "no-dupe-args": "error",
+    "no-dupe-keys": "error",
+    "no-func-assign": "error",
+    "no-obj-calls": "error",
+    "no-unreachable": "error",
+    "no-constant-condition": "warn",
+    "no-redeclare": "error",
+    "no-extra-semi": "error",
+    "no-fallthrough": "error",
+    "no-with": "error",
+    "no-delete-var": "error",
+    "eqeqeq": ["warn", "allow-null"],
+    "curly": "warn",
+    "semi": ["error", "always"],
+    "quotes": "off"
+  }
+}

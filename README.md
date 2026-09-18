@@ -10,7 +10,7 @@ Out of the box it includes support for choropleths and bubble maps (see [demos](
 
 ##### For feature requests, open an issue!
 
-##### [Contribution Guideliness](#contributing-guidelines)
+##### [Contributing Guidelines](CONTRIBUTING.md)
 
 #### Demos at http://datamaps.github.io
 
@@ -59,6 +59,10 @@ This should render a new world map with a standard projection.
     var map = new Datamap({element: document.getElementById('container')});
 </script>
 ```
+
+For development installs from this repository, use `npm ci` to install the exact
+versions recorded in `package-lock.json` (or `npm install` if you are changing
+dependencies).
 
 #### via Bower
 
@@ -442,6 +446,47 @@ If the aspect ratio of your custom map is not the default `16:9` (`0.5625`), you
 ```
 ---
 
+#### Architecture
+
+Datamaps is a single-file browser library. `src/js/datamaps.js` contains the
+`Datamap` constructor, the default options, and the rendering pipeline
+(`draw` -> `drawSubunits` -> `handleGeographyConfig`), plus a small plugin
+system:
+
+* `map.addPlugin(name, pluginFn)` registers a new method on the `Datamap`
+  prototype. The plugin function is invoked as
+  `pluginFn(layer, data, options)` where `layer` is a `<g>` element appended to
+  the map's root SVG. Core features such as `bubbles`, `arc`, `labels`,
+  `legend`, and `graticule` are implemented as plugins registered this way.
+* `map.addLayer(className, id, first)` appends (or prepends) a `<g>` layer to
+  the root SVG and returns it; plugins use it to create their own layer.
+* `map.latLngToXY(lat, lng)` projects geographic coordinates to SVG pixel
+  coordinates using the active projection.
+
+The map geometry is TopoJSON. The source ships with `world.topo.json` and
+`usa.topo.json` under `src/js/data/`; the grunt `replace` task inlines them into
+the built files (`dist/datamaps.world.js`, `dist/datamaps.usa.js`,
+`dist/datamaps.all.js`) by substituting the `__WORLD__` / `__USA__` placeholders
+in `src/js/datamaps.js`. Vendored third-party libraries live under
+`src/js/components/` and are pinned copies used by the examples.
+
+#### Development
+
+From a fresh clone:
+
+```sh
+npm ci          # reproducible install from package-lock.json
+npm run lint    # ESLint over first-party source and tests
+npm test        # Jasmine specs with nyc coverage (threshold enforced)
+npm run build   # grunt build: inline TopoJSON, minify, copy to dist/
+```
+
+The test suite runs in Node against a jsdom DOM (no browser or PhantomJS
+required) and lives in `test/spec/`. See [CONTRIBUTING.md](CONTRIBUTING.md) for
+contribution guidelines and PR expectations.
+
+---
+
 #### Default Options
 ```js
   {
@@ -499,7 +544,10 @@ If the aspect ratio of your custom map is not the default `16:9` (`0.5625`), you
 ```
 ---
 
-#Contributing Guidelines
+## Contributing Guidelines
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide. The short version:
 
 * Do not run the `grunt build` task or submit any built files in your PR. 
 * Have an example in `src/examples` if adding a new feature. Copy an existing feature `.html` file to start.
+* Ship each change together with the tests that pin the new behaviour, and run `npm run lint` and `npm test` before opening the PR.

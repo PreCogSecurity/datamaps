@@ -1,0 +1,9 @@
+node_modules/
+dist/
+src/rel/
+src/js/components/
+src/js/app/
+src/js/json2.js
+src/js/data/
+src/tests/
+bower_components/

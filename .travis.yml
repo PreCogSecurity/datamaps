@@ -1,6 +1,10 @@
 language: node_js
 node_js:
-  - "0.8"
+  - "20"
 
-before_script:
-  - npm install -g grunt-cli
+cache: npm
+
+script:
+  - npm run lint
+  - npm test
+  - npm run build
