@@ -4,22 +4,41 @@
   "description": "datamaps with d3.js",
   "version": "0.4.0",
   "author": "Mark DiMarco<markmarkoh@gmail.com>",
+  "license": "MIT",
   "scripts": {
-    "test": "grunt jasmine"
+    "test": "nyc jasmine --config=jasmine.json",
+    "lint": "eslint src/js test",
+    "build": "grunt build"
   },
   "dependencies": {
     "d3": "^3.5.6",
     "topojson": "^1.6.19"
   },
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-copy": "~0.4.1",
-    "grunt-contrib-jasmine": "~0.5.2",
-    "grunt-contrib-uglify": "~0.2.2",
-    "grunt-contrib-watch": "~0.4.4",
-    "grunt-replace": "~0.4.4",
+    "eslint": "^8.57.1",
+    "grunt": "^1.6.1",
+    "grunt-contrib-clean": "^2.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-uglify": "^0.11.1",
+    "grunt-contrib-watch": "^1.1.0",
     "grunt-sync-pkg": "^0.1.2",
-    "grunt-text-replace": "~0.3.6"
+    "grunt-text-replace": "^0.4.0",
+    "jasmine": "^5.5.0",
+    "jsdom": "^25.0.1",
+    "nyc": "^17.1.0"
+  },
+  "nyc": {
+    "include": [
+      "src/js/datamaps.js"
+    ],
+    "reporter": [
+      "text",
+      "lcov"
+    ],
+    "check-coverage": true,
+    "lines": 40,
+    "statements": 40,
+    "functions": 40,
+    "branches": 25
   }
 }

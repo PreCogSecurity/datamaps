@@ -47,17 +47,6 @@ module.exports = function(grunt) {
         }
       }
     },
-    jasmine: {
-      all: [
-        'src/tests/SpecRunner_StatesGlobal.html',
-        'src/tests/SpecRunner_StatesStripped.html',
-        'src/tests/SpecRunner_CountriesStripped.html',
-        'src/tests/SpecRunner_CountriesGlobal.html',
-        'src/tests/SpecRunner_AllStripped.html',
-        'src/tests/SpecRunner_AllGlobal.html',
-        'src/tests/SpecRunner_jQueryPlugin.html'
-      ]
-    },
     copy: {
       all: {
         files: [
@@ -66,7 +55,7 @@ module.exports = function(grunt) {
       }
     },
     clean: {
-      release: ['.dist/datamaps.*.js']
+      release: ['dist/datamaps.*.js']
     },
     sync: {
       options: {
@@ -75,7 +64,6 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-text-replace');

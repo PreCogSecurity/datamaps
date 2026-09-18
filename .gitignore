@@ -5,3 +5,7 @@ npm-debug.log
 bower_components
 rel
 tmp
+.nyc_output
+coverage
+.eslintcache
+node_modules/
